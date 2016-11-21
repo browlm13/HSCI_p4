@@ -100,3 +100,25 @@
 						i++;
 					num_intervals = i
 				----------------------------------------------------
+
+
+
+//get mean A constant value for error estimations of untested interval sizes
+double get_mean_A(double a, double b, vector<int> intervals, vector<double> errors, vector<double> conv_rates){
+        vector<double> Ais;
+
+        for (int i=1; i<intervals.size(); i++){
+          double q = pow(((b-a)/intervals[i]),conv_rates[i]);
+          Ais.push_back(errors[i]/q);
+        }
+
+        return get_mean(Ais);
+}
+
+//method for finding unkown error for any interval size after constant A is found
+double estimate_error_for_interval_size(int a, int b, double mean_A, int size, double mean_convergence){
+  return mean_A * pow(((b-a)/size),mean_convergence);
+}
+
+    double mean_A = get_mean_A(a, b, n, errors, conv_rates);
+    double err_40 = estimate_error_for_interval_size(a, b, mean_A, 40, mean);

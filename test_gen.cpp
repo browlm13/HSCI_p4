@@ -1,7 +1,7 @@
-/* Daniel R. Reynolds
+/* Laruence Brown
    SMU Mathematics
    Math 3316
-   31 October 2015 */
+   21 November 2016 */
 
 // Inclusions
 #include <stdlib.h>
@@ -117,11 +117,12 @@ int main(int argc, char* argv[]) {
     double sd = get_sd(conv_rates);
 
     //mean relitive error change in magnitude
-    double mean_error_change = get_mean(error_order_imprv);
-    double sd_error_change = get_sd(error_order_imprv);
+    //double mean_error_change = get_mean(error_order_imprv);
+    //double sd_error_change = get_sd(error_order_imprv);
 
     printf("\n\tmean convergence: %f, sd: %f", mean, sd);
-    printf("\n\tmean error exp change: %f, sd: %f\n", mean_error_change, sd_error_change);
+    //printf("\n\tmean error exp change: %f, sd: %f\n", mean_error_change, sd_error_change);
+
     cout << "  ---------------------------------------------------\n";
 
   }
