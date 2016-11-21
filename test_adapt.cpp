@@ -44,33 +44,41 @@ int main(int argc, char* argv[]) {
 
   // true integral value
   double Itrue = f.antiderivative(b) - f.antiderivative(a);
-  printf("\n True Integral = %22.16e\n", Itrue);
-
-
-  // test the Gauss-4 rule
-  cout << "\n adaptive solver:\n";
-  cout << "     n             R(f)            relerr      Ntot\n";
-  cout << "  ---------------------------------------------------\n";
-  //vector<int> n = {20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240};
+  double rtol_exps[6] = {2,4,6,8,10,12};
+  vector<double> rtols;
+  for (int i=0; i<6; i++){
+    rtols.push_back(1/pow(10,rtol_exps[i]));
+  }
   vector<double> errors;
-  //vector<double> hvals(n.size());
 
-  // iterate over n values, computing approximations, error, convergence rate
-  double Iapprox; //integral estimation
-  int Ntot; //number of intervals tried
-  int n;    //final number of intervals used
+  for (int i=0; i<6; i++){
+    //excepted tolerance
+    double rtol = rtols[i];
+    double atol = rtol/(1000);
+    double tolerance = rtol* fabs(Itrue) + atol;
 
-  double rtol = 1/(10*10*10*10);
-  double atol = rtol/ (1000);
-
-  //call adaptive solver
-  adaptive_int(f, a, b, rtol, atol, Iapprox, n, Ntot);
-
-  errors.push_back(fabs(Itrue-Iapprox)/fabs(Itrue));
-
-  printf("\t%d\t%22.16e\t%7.1e\t%d\n", n, Iapprox, errors[0], Ntot);
+    printf("\n\tTrue Integral = %22.16e\n", Itrue);
+    printf("\tTolerence = %7.1e\n", tolerance);
 
 
-  cout << "  ---------------------------------------------------\n";
+    // test the Gauss-4 rule
+    cout << "\n adaptive solver:\n";
+    cout << "     n             R(f)            relerr      Ntot\n";
+    cout << "  ---------------------------------------------------\n";
+    //vector<int> n = {20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240};
 
+    // iterate over n values, computing approximations, error, convergence rate
+    double Iapprox; //integral estimation
+    int Ntot; //number of intervals tried
+    int n;    //final number of intervals used
+
+    //call adaptive solver
+    adaptive_int(f, a, b, rtol, atol, Iapprox, n, Ntot);
+
+    errors.push_back(fabs(Itrue-Iapprox)/fabs(Itrue));
+    printf("    %d\t  %22.12e  %7.1e       %d\n", n, Iapprox, errors[i], Ntot);
+
+
+    cout << "  ---------------------------------------------------\n";
+  }
 }
