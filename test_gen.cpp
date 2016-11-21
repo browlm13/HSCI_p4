@@ -14,7 +14,7 @@
 using namespace std;
 
 // function prototypes
-double composite_int(Fcn& f, const double a, 
+double composite_int_gen(Fcn& f, const double a, 
 			const double b, const int n);
 
 // Integrand
@@ -30,7 +30,7 @@ public:
 };
 
 
-// This routine tests the Gauss-4 method on a simple integral
+// This routine tests the Gauss-5 method on a simple integral
 int main(int argc, char* argv[]) {
 
   // limits of integration
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 
 
   // test the Gauss-4 rule
-  cout << "\n Gauss-4 approximation:\n";
+  cout << "\n Gauss-n (gen) approximation:\n";
   cout << "     n             R(f)            relerr    conv rate\n";
   cout << "  ---------------------------------------------------\n";
   vector<int> n = {20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240};
@@ -60,7 +60,8 @@ int main(int argc, char* argv[]) {
   for (int i=0; i<n.size(); i++) {
 
     printf("   %6i", n[i]);
-    Iapprox = composite_int(f, a, b, n[i]);
+
+    Iapprox = composite_int_gen(f, a, b, n[i]);
     errors[i] = fabs(Itrue-Iapprox)/fabs(Itrue);
     hvals[i] = (b-a)/n[i];
     if (i == 0) 
@@ -68,7 +69,6 @@ int main(int argc, char* argv[]) {
     else 
       printf("  %22.16e  %7.1e   %f\n", Iapprox, errors[i], 
 	     (log(errors[i-1]) - log(errors[i]))/(log(hvals[i-1]) - log(hvals[i])));
-    
   }
   cout << "  ---------------------------------------------------\n";
 
