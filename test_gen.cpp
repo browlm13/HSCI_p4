@@ -15,7 +15,7 @@ using namespace std;
 
 // function prototypes
 double composite_int_gen(Fcn& f, const double a, 
-			const double b, const int n);
+			const double b, const int n, int order);
 
 // Integrand
 class fcn : public Fcn {
@@ -42,35 +42,39 @@ int main(int argc, char* argv[]) {
   f.c = 0.5;
   f.d = 25.0;
 
-  // true integral value
-  double Itrue = f.antiderivative(b) - f.antiderivative(a);
-  printf("\n True Integral = %22.16e\n", Itrue);
+  //set order for guass for all tests
+  for (int order=1; order<7; order++){
+    // true integral value
+    double Itrue = f.antiderivative(b) - f.antiderivative(a);
+    printf("\n True Integral = %22.16e\n", Itrue);
 
 
-  // test the Gauss-4 rule
-  cout << "\n Gauss-n (gen) approximation:\n";
-  cout << "     n             R(f)            relerr    conv rate\n";
-  cout << "  ---------------------------------------------------\n";
-  vector<int> n = {20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240};
-  vector<double> errors(n.size());
-  vector<double> hvals(n.size());
+    // test the Gauss-4 rule
+    printf("\n Gauss-%d approximation:\n", order);
+    cout << "     n             R(f)            relerr    conv rate\n";
+    cout << "  ---------------------------------------------------\n";
+    vector<int> n = {10, 20, 40, 80, 160, 320};
+    vector<double> errors(n.size());
+    vector<double> hvals(n.size());
 
-  // iterate over n values, computing approximations, error, convergence rate
-  double Iapprox;
-  for (int i=0; i<n.size(); i++) {
+    // iterate over n values, computing approximations, error, convergence rate
+    double Iapprox;
+    for (int i=0; i<n.size(); i++) {
 
-    printf("   %6i", n[i]);
+      printf("   %6i", n[i]);
 
-    Iapprox = composite_int_gen(f, a, b, n[i]);
-    errors[i] = fabs(Itrue-Iapprox)/fabs(Itrue);
-    hvals[i] = (b-a)/n[i];
-    if (i == 0) 
-      printf("  %22.16e  %7.1e     ----\n", Iapprox, errors[i]);
-    else 
-      printf("  %22.16e  %7.1e   %f\n", Iapprox, errors[i], 
-	     (log(errors[i-1]) - log(errors[i]))/(log(hvals[i-1]) - log(hvals[i])));
+      Iapprox = composite_int_gen(f, a, b, n[i], order);
+      errors[i] = fabs(Itrue-Iapprox)/fabs(Itrue);
+      hvals[i] = (b-a)/n[i];
+      if (i == 0) 
+        printf("  %22.16e  %7.1e     ----\n", Iapprox, errors[i]);
+      else
+        printf("  %22.16e  %7.1e   %f\n", Iapprox, errors[i], 
+         (log(errors[i-1]) - log(errors[i]))/(log(hvals[i-1]) - log(hvals[i])));
+    }
+    cout << "  ---------------------------------------------------\n";
+
   }
-  cout << "  ---------------------------------------------------\n";
 
 }
 

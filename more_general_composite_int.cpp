@@ -56,7 +56,7 @@ void get_xw(int order, vector<double> &xi, vector<double> &w){
       0.00000000000000,0.53846931010568,0.90617984593866};
   double w_5[5] = {0.23692688505619,0.47862867049937,
       0.56888888888889,0.47862867049937,0.23692688505619};
-      
+
   double xi_6[6] = {-0.93246951420315,-0.66120938646626,
       -0.23861918608320, 0.23861918608320, 0.66120938646626,
       0.93246951420315};
@@ -99,7 +99,7 @@ void get_xw(int order, vector<double> &xi, vector<double> &w){
 }
 
 double composite_int_gen(Fcn& f, const double a, 
-			const double b, const int n) {
+			const double b, const int n, int order) {
 
   // check input arguments
   if (b < a) {
@@ -115,7 +115,6 @@ double composite_int_gen(Fcn& f, const double a,
   double h = (b-a)/n;
 
   // set nodes/weights defining the quadrature method
-  int order = 6;
   vector<double> xi;
   vector<double> w;
   get_xw(order, xi, w);
