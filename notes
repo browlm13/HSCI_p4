@@ -2,4 +2,29 @@
 
 #universal set of weights and nodes (algorythm for finding points, matrix of points up to n=9)
 
-#
+
+#after finding mean and sd of each n values converges rate find way to model handle mean value of multiple draws from same normal distribution
+
+
+#finding optimal number of subintervals for unkown integral
+
+	-if i know the tolerence level i should be able to find approximatley the Rn+k that gives a value 
+		as accurate
+
+	- i can use this value to make sure the tolernce level is aceptible with Rn if it get close to Rn+k within the deiserd tolerence
+
+	thoughts:
+
+		if the diffrence between Rn and Rn+k is of acceptible tolerence, then it is very likley 
+		that the true value is also in that accepted tolerance
+
+		if not both Rn+k and Rn have to be changed, that is n has to be increased but it should be increased inteligently.
+
+
+
+
+		chosing n and k values:
+
+			initial choice: 	Since i have a mean convergece rate and sd I should be able to calculate the approximate number of subintervals needed to get the desierd accuray:
+
+				formula: 

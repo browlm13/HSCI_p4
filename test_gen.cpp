@@ -29,6 +29,33 @@ public:
   }
 };
 
+//mean
+double get_mean(vector<double> sample){
+  double mean = 0;
+  for (int i=0; i<sample.size(); i++){
+    if (isinf(sample[i]))
+      mean += (mean/(sample.size()-1));         //[todo] fix model
+    else
+      mean += sample[i];
+  }
+  return mean /= sample.size();
+}
+
+//standard devation
+double get_sd(vector<double> sample){
+  double mean = get_mean(sample);
+
+  //sd = sqrt((E (x-mean)^2)/n-1)
+  double variance = 0;
+  for (int i=0; i<sample.size(); i++){
+    if (isinf(sample[i]))                       //[todo] fix model
+      sample[i] = (mean/(sample.size()-1));
+    variance += pow((sample[i] - mean),2);
+  }
+  variance /= sample.size() - 1;
+  return sqrt(variance);
+
+}
 
 // This routine tests the Gauss-5 method on a simple integral
 int main(int argc, char* argv[]) {
@@ -54,8 +81,10 @@ int main(int argc, char* argv[]) {
     cout << "     n             R(f)            relerr    conv rate\n";
     cout << "  ---------------------------------------------------\n";
     vector<int> n = {10, 20, 40, 80, 160, 320};
+    //vector<int> n = {5, 10, 15, 20, 25, 30, 35, 40, 80, 160, 320};
     vector<double> errors(n.size());
     vector<double> hvals(n.size());
+    vector<double> conv_rates;;
 
     // iterate over n values, computing approximations, error, convergence rate
     double Iapprox;
@@ -68,10 +97,19 @@ int main(int argc, char* argv[]) {
       hvals[i] = (b-a)/n[i];
       if (i == 0) 
         printf("  %22.16e  %7.1e     ----\n", Iapprox, errors[i]);
-      else
-        printf("  %22.16e  %7.1e   %f\n", Iapprox, errors[i], 
-         (log(errors[i-1]) - log(errors[i]))/(log(hvals[i-1]) - log(hvals[i])));
+      else{
+        conv_rates.push_back( (log(errors[i-1]) - log(errors[i])) / (log(hvals[i-1]) - log(hvals[i])) );
+        printf("  %22.16e  %7.1e   %f\n", Iapprox, errors[i], conv_rates[i-1]);
+      }
     }
+
+    //display converges rate anylisis
+    //mu
+    double mean = get_mean(conv_rates);
+    //sd
+    double sd = get_sd(conv_rates);
+
+    printf("\n\tmean convergence: %f, sd: %f\n", mean, sd);
     cout << "  ---------------------------------------------------\n";
 
   }
