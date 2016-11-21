@@ -27,4 +27,76 @@
 
 			initial choice: 	Since i have a mean convergece rate and sd I should be able to calculate the approximate number of subintervals needed to get the desierd accuray:
 
+
+				*what matters is the diffrence between the exponent values
+						(the relitive error)
 				formula: 
+
+
+				for rate of convergence:
+
+				error_1 = A delta_x_1^n
+				error_2 = A delta_x_2^n
+
+				#where A is and unkown constant and n is the order of convergence
+
+				e1/e2 = (dx1/dx2)^n
+
+				log e1/e2 = n log dx1/dx2
+				n = (log e1 - log e2) / (log dx1 - log dx2)
+
+
+
+				for desired error???
+
+				delta_xi = (b-a)/mi			#where m is number of intervals
+
+				error_1 = A delta_xi^(10)	#10 was pulled from sampling
+
+
+				-----------------------------------------------------
+				#method for finding constant A for diffrent n intervals
+				-----------------------------------------------------
+				psedu code:
+
+				Ais[];
+
+				erros[] = known
+				mean_convergence = known 		#same for all
+				for mi in interval_sizes:
+					qi = pow(((b-a)/mi),mean_convergence);
+
+					#solve for unkown
+					Ai = erros[i]/qi
+					Ais.push_back[Ai]
+
+				mean_A = get_mean(Ais);
+				----------------------------------------
+
+				--------------------------------------------------------------------------------
+				#method for finding unkown error for any interval size after constant A is found
+				--------------------------------------------------------------------------------
+				pseudo code:
+
+				double estimate_error_for_interval_size(size)
+					#err = unkown
+					mean_A = known
+					mean_convergence = known
+
+					return mean_A * pow(((b-a)/size),mean_convergence);
+
+				--------------------------------------------------------------------------------
+				#method for finding num interval esitmate for desired tolrence
+				--------------------------------------------------------------------------------
+				#do this for each m value (numbr of intervals)
+	
+				psedu code:
+
+				int num_iterations_for_tol(tol)
+					err = tol +1;
+					int i = 1;
+					while (err > tol)
+						err = estimate_error_for_interval_size(i);
+						i++;
+					num_intervals = i
+				----------------------------------------------------

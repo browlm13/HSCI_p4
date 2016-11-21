@@ -29,6 +29,11 @@ public:
   }
 };
 
+//get order of convergece
+double magnitude_change(double arg1, double arg2){
+ return (arg2 == 0) ? 0 : (int)(1 + log10(fabs(arg1)) ) - (int)(1 + log10(fabs(arg2)) );
+}
+
 //mean
 double get_mean(vector<double> sample){
   double mean = 0;
@@ -84,7 +89,8 @@ int main(int argc, char* argv[]) {
     //vector<int> n = {5, 10, 15, 20, 25, 30, 35, 40, 80, 160, 320};
     vector<double> errors(n.size());
     vector<double> hvals(n.size());
-    vector<double> conv_rates;;
+    vector<double> conv_rates;
+    vector<double> error_order_imprv;
 
     // iterate over n values, computing approximations, error, convergence rate
     double Iapprox;
@@ -99,17 +105,23 @@ int main(int argc, char* argv[]) {
         printf("  %22.16e  %7.1e     ----\n", Iapprox, errors[i]);
       else{
         conv_rates.push_back( (log(errors[i-1]) - log(errors[i])) / (log(hvals[i-1]) - log(hvals[i])) );
+        error_order_imprv.push_back(magnitude_change( errors[i-1], errors[i]));
         printf("  %22.16e  %7.1e   %f\n", Iapprox, errors[i], conv_rates[i-1]);
       }
     }
 
     //display converges rate anylisis
-    //mu
+    //mean convergence rate
     double mean = get_mean(conv_rates);
     //sd
     double sd = get_sd(conv_rates);
 
-    printf("\n\tmean convergence: %f, sd: %f\n", mean, sd);
+    //mean relitive error change in magnitude
+    double mean_error_change = get_mean(error_order_imprv);
+    double sd_error_change = get_sd(error_order_imprv);
+
+    printf("\n\tmean convergence: %f, sd: %f", mean, sd);
+    printf("\n\tmean error exp change: %f, sd: %f\n", mean_error_change, sd_error_change);
     cout << "  ---------------------------------------------------\n";
 
   }
