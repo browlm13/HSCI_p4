@@ -6,6 +6,44 @@
 #after finding mean and sd of each n values converges rate find way to model handle mean value of multiple draws from same normal distribution
 
 
+//modeling best adaptive approches for accuracy and computational inentisy
+
+1.(for diffrent function values choosing how to update number of intervals tried)
+	-power attached to x (.1-10)
+2.(for diffrent values of k)
+3.*(for each gauss-n for n in {1-9})
+graph ideas:
+
+//
+//testing a single gauss-n with a single power value
+//
+
+y1 = final suloution for number of intervals n
+y2 = total operations performed or Ntot
+y3 = error
+y4 = score (something like: y1 + y2 + y3)
+x = tol
+
+//
+//testing exponent value
+//
+
+yi = scores diffrent 1
+x = tol
+
+y = (SUM(score of corresponing 1))
+x = all diffrent 1s
+
+//
+//testing diffrent orders for gauss-n
+//
+
+//bar graph?
+y = score for optimal exponent value
+x = gauss-n orders (1-9)
+
+
+
 #finding optimal number of subintervals for unkown integral
 
 	-if i know the tolerence level i should be able to find approximatley the Rn+k that gives a value 
