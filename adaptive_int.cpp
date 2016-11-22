@@ -36,7 +36,10 @@ void integrate(Fcn& f, double a, double b, int m, const int k, const double rtol
 
 	if( err > tol ){
 		Ntot += m+k;
-		m *= 2;
+		//m *= 2;
+		//m *= m;
+		//m *= int((.75)*m);
+		m *= int((.60)*m);	//best
 		integrate(f, a, b, m, k, rtol, atol, R, n, Ntot);
 	}
 	else{

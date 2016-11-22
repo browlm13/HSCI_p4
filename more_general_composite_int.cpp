@@ -136,7 +136,7 @@ double composite_int_gen(Fcn& f, const double a,
       nodes[i] = xmid + 0.5*h*xi[i];
     }
 
-    // add Gauss2 approximation on this subinterval to result
+    // add Gauss-n approximation on this subinterval to result
     for (int i=0; i<order; i++){
       F += w[i]*f(nodes[i]);
     }

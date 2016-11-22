@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
     adaptive_int(f, a, b, rtol, atol, Iapprox, n, Ntot);
 
     errors.push_back(fabs(Itrue-Iapprox)/fabs(Itrue));
-    printf("    %d\t  %22.12e  %7.1e       %d\n", n, Iapprox, errors[i], Ntot);
+    printf("    %d\t  %22.12e  %7.1e   %d\n", n, Iapprox, errors[i], Ntot);
 
 
     cout << "  ---------------------------------------------------\n";
