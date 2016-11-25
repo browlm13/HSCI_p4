@@ -28,7 +28,7 @@ double composite_int_gen(Fcn& f, const double a,
 	trick is picking smart n and k values
 */
 
-void integrate(Fcn& f, double a, double b, int m, const int k, const double rtol,
+void integrate(Fcn& f, Fcn& g, double a, double b, int m, const int k, const double rtol,
 							const double atol, double& R, int& n, int& Ntot){
 
 	double tol = rtol * fabs(composite_int_gen(f,a,b,m+k,6)) + atol;
@@ -36,8 +36,9 @@ void integrate(Fcn& f, double a, double b, int m, const int k, const double rtol
 
 	if( err > tol ){
 		Ntot += m+k;
-		m *= int((.60)*m);	//best
-		integrate(f, a, b, m, k, rtol, atol, R, n, Ntot);
+		//m *= int((.60)*m);	//best
+		m *= int(g(m));
+		integrate(f, g, a, b, m, k, rtol, atol, R, n, Ntot);
 	}
 	else{
 		//printf("\ntol:%f, \terr:%f\n", tol, err);
@@ -48,13 +49,13 @@ void integrate(Fcn& f, double a, double b, int m, const int k, const double rtol
 
 }
 
-void adaptive_int(Fcn& f, const double a, const double b, const double rtol,
+void adaptive_int(Fcn& f, Fcn& g, const double a, const double b, const double rtol,
 									const double atol, double& R, int& n, int& Ntot){
 	//number of intervals
 	int m = 10;
 	int k = 320;
 	Ntot = 0;
-	integrate(f, a, b, m, k, rtol, atol, R, n, Ntot);
+	integrate(f, g, a, b, m, k, rtol, atol, R, n, Ntot);
 	
 } // end of function
 

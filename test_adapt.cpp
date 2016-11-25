@@ -29,6 +29,39 @@ public:
   }
 };
 
+//create a new vector of linearly space data
+vector<double> Linspace(double a, double b, size_t n){
+  if (n<2) std::cerr << "Linspace::length must be > 1\n";
+  std::vector<double> v(n);
+  
+  double h = (b-a)/(n-1);
+  for (size_t i=0; i<n; i++)
+    v[i] = a + i*h;
+
+  return v;
+}
+
+//write a vector to a file
+int write(std::vector<double> v, const char *outfile) { 
+
+  // open output file
+  FILE *fptr = NULL;
+  fptr = fopen(outfile, "w");
+  if (fptr == NULL) {
+    cerr << "Write:: error, unable to open " << outfile << " for writing\n";
+    return 1;
+  }
+
+  // print data to file
+  for (size_t i=0; i<v.size(); i++) {
+      fprintf(fptr, "  %.16g", v[i]);
+  }
+
+  // close output file and return
+  fclose(fptr);
+  return 0;
+}
+
 
 // This routine tests the Gauss-4 method on a simple integral
 int main(int argc, char* argv[]) {
@@ -42,16 +75,38 @@ int main(int argc, char* argv[]) {
   f.c = 0.5;
   f.d = 25.0;
 
+  //
   // true integral value
+  //
   double Itrue = f.antiderivative(b) - f.antiderivative(a);
-  double rtol_exps[6] = {2,4,6,8,10,12};
+
+
+    //nupdating function x^c, c values (NUM TOL for now)
+  const int NUM_FS = 10;
+  vector<double> n_up_f_consts = Linspace(0.4, 1.0,NUM_FS);
+
+
+  //
+  //    run trials
+  //
+      //ugly caluclating tolerence with - exp list
+  const int NUM_TOL = 15;
+  vector<double>rtol_exps = Linspace(1,14,NUM_TOL);
+
+  //
+  //    data vectors
+  //
   vector<double> rtols;
-  for (int i=0; i<6; i++){
+  for (int i=0; i<NUM_TOL; i++){
     rtols.push_back(1/pow(10,rtol_exps[i]));
   }
   vector<double> errors;
+  vector<int> Ntots;
+  vector<int> ns;
 
-  for (int i=0; i<6; i++){
+
+  for (int i=0; i<NUM_TOL; i++){
+
     //excepted tolerance
     double rtol = rtols[i];
     double atol = rtol/(1000);
@@ -72,12 +127,20 @@ int main(int argc, char* argv[]) {
     int Ntot; //number of intervals tried
     int n;    //final number of intervals used
 
-    //call adaptive solver
+
+    //
+    //    call adaptive solver
+    //
     adaptive_int(f, a, b, rtol, atol, Iapprox, n, Ntot);
 
-    errors.push_back(fabs(Itrue-Iapprox)/fabs(Itrue));
-    printf("    %d\t  %22.12e  %7.1e   %d\n", n, Iapprox, errors[i], Ntot);
 
+
+    //update data
+    errors.push_back(fabs(Itrue-Iapprox)/fabs(Itrue));
+    Ntots.push_back(Ntot);
+    ns.push_back(n);
+
+    printf("    %d\t  %22.12e  %7.1e   %d\n", ns[i], Iapprox, errors[i], Ntots[i]);
 
     cout << "  ---------------------------------------------------\n";
   }

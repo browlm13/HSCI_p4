@@ -1,3 +1,24 @@
+
+
+
+
+--> show output of gaussian-n comparitive results for reason to choose integral algorithm
+
+--> test performace for diffrent interval updating functions
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------
+
 #gaussian quadrature
 
 #universal set of weights and nodes (algorythm for finding points, matrix of points up to n=9)
