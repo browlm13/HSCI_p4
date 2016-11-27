@@ -1,0 +1,183 @@
+
+
+
+
+--> show output of gaussian-n comparitive results for reason to choose integral algorithm
+
+--> test performace for diffrent interval updating functions
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------
+
+#gaussian quadrature
+
+#universal set of weights and nodes (algorythm for finding points, matrix of points up to n=9)
+
+
+#after finding mean and sd of each n values converges rate find way to model handle mean value of multiple draws from same normal distribution
+
+
+//modeling best adaptive approches for accuracy and computational inentisy
+
+1.(for diffrent function values choosing how to update number of intervals tried)
+	-power attached to x (.1-10)
+2.(for diffrent values of k)
+3.*(for each gauss-n for n in {1-9})
+graph ideas:
+
+//
+//testing a single gauss-n with a single power value
+//
+
+y1 = final suloution for number of intervals n
+y2 = total operations performed or Ntot
+y3 = error
+y4 = score (something like: y1 + y2 + y3)
+x = tol
+
+//
+//testing exponent value
+//
+
+yi = scores diffrent 1
+x = tol
+
+y = (SUM(score of corresponing 1))
+x = all diffrent 1s
+
+//
+//testing diffrent orders for gauss-n
+//
+
+//bar graph?
+y = score for optimal exponent value
+x = gauss-n orders (1-9)
+
+
+
+#finding optimal number of subintervals for unkown integral
+
+	-if i know the tolerence level i should be able to find approximatley the Rn+k that gives a value 
+		as accurate
+
+	- i can use this value to make sure the tolernce level is aceptible with Rn if it get close to Rn+k within the deiserd tolerence
+
+	thoughts:
+
+		if the diffrence between Rn and Rn+k is of acceptible tolerence, then it is very likley 
+		that the true value is also in that accepted tolerance
+
+		if not both Rn+k and Rn have to be changed, that is n has to be increased but it should be increased inteligently.
+
+
+
+
+		chosing n and k values:
+
+			initial choice: 	Since i have a mean convergece rate and sd I should be able to calculate the approximate number of subintervals needed to get the desierd accuray:
+
+
+				*what matters is the diffrence between the exponent values
+						(the relitive error)
+				formula: 
+
+
+				for rate of convergence:
+
+				error_1 = A delta_x_1^n
+				error_2 = A delta_x_2^n
+
+				#where A is and unkown constant and n is the order of convergence
+
+				e1/e2 = (dx1/dx2)^n
+
+				log e1/e2 = n log dx1/dx2
+				n = (log e1 - log e2) / (log dx1 - log dx2)
+
+
+
+				for desired error???
+
+				delta_xi = (b-a)/mi			#where m is number of intervals
+
+				error_1 = A delta_xi^(10)	#10 was pulled from sampling
+
+
+				-----------------------------------------------------
+				#method for finding constant A for diffrent n intervals
+				-----------------------------------------------------
+				psedu code:
+
+				Ais[];
+
+				erros[] = known
+				mean_convergence = known 		#same for all
+				for mi in interval_sizes:
+					qi = pow(((b-a)/mi),mean_convergence);
+
+					#solve for unkown
+					Ai = erros[i]/qi
+					Ais.push_back[Ai]
+
+				mean_A = get_mean(Ais);
+				----------------------------------------
+
+				--------------------------------------------------------------------------------
+				#method for finding unkown error for any interval size after constant A is found
+				--------------------------------------------------------------------------------
+				pseudo code:
+
+				double estimate_error_for_interval_size(size)
+					#err = unkown
+					mean_A = known
+					mean_convergence = known
+
+					return mean_A * pow(((b-a)/size),mean_convergence);
+
+				--------------------------------------------------------------------------------
+				#method for finding num interval esitmate for desired tolrence
+				--------------------------------------------------------------------------------
+				#do this for each m value (numbr of intervals)
+	
+				psedu code:
+
+				int num_iterations_for_tol(tol)
+					err = tol +1;
+					int i = 1;
+					while (err > tol)
+						err = estimate_error_for_interval_size(i);
+						i++;
+					num_intervals = i
+				----------------------------------------------------
+
+
+
+//get mean A constant value for error estimations of untested interval sizes
+double get_mean_A(double a, double b, vector<int> intervals, vector<double> errors, vector<double> conv_rates){
+        vector<double> Ais;
+
+        for (int i=1; i<intervals.size(); i++){
+          double q = pow(((b-a)/intervals[i]),conv_rates[i]);
+          Ais.push_back(errors[i]/q);
+        }
+
+        return get_mean(Ais);
+}
+
+//method for finding unkown error for any interval size after constant A is found
+double estimate_error_for_interval_size(int a, int b, double mean_A, int size, double mean_convergence){
+  return mean_A * pow(((b-a)/size),mean_convergence);
+}
+
+    double mean_A = get_mean_A(a, b, n, errors, conv_rates);
+    double err_40 = estimate_error_for_interval_size(a, b, mean_A, 40, mean);
