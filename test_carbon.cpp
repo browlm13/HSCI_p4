@@ -76,15 +76,10 @@ int main(int argc, char* argv[]) {
 	vector<double> Ts = Linspace(800, 1200, 400);
 	vector<double> ts = Linspace(1, 172800, 600);
 
-	//vector<double> C2mm;
-	//vector<double> C4mm;
-
-	//vector<double> C_002_t_800;
-
-	Matrix C2mm(600,400);
-	Matrix C4mm(600,400);
-	for (int i=0; i<600; i++){
-		for (int j=0; j<400; j++){
+	Matrix C2mm(400,600);
+	Matrix C4mm(400,600);
+	for (int i=0; i<400; i++){
+		for (int j=0; j<600; j++){
 			C2mm.M[j][i]=carbon(0.002, ts[j], Ts[i], rtol, atol);
 			C4mm.M[j][i]=carbon(0.004, ts[j], Ts[i], rtol, atol);
 		}
