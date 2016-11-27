@@ -117,7 +117,8 @@ int main(int argc, char* argv[]) {
 	}
 
 	//write data
-	write(ts, "ts.txt");
+	write(ts, "time.txt");
+	write(Ts, "Temp.txt");
 
 	C2mm.write("C2mm.txt");
 	C4mm.write("C4mm.txt");
