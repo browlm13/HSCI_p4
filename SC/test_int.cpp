@@ -1,7 +1,9 @@
-/* Daniel R. Reynolds
+/* 
+   Laruence Brown
    SMU Mathematics
    Math 3316
-   31 October 2015 */
+   21 November 2016 
+*/
 
 // Inclusions
 #include <stdlib.h>
@@ -47,11 +49,11 @@ int main(int argc, char* argv[]) {
   printf("\n True Integral = %22.16e\n", Itrue);
 
 
-  // test the Gauss-4 rule
-  cout << "\n Gauss-4 approximation:\n";
+  // test the composite_int function (Gauss-6) rule
+  cout << "\n composite_int (Gauss-6) approximation:\n";
   cout << "     n             R(f)            relerr    conv rate\n";
   cout << "  ---------------------------------------------------\n";
-  vector<int> n = {20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10240};
+  vector<int> n = {10, 20, 40, 80, 160, 320};
   vector<double> errors(n.size());
   vector<double> hvals(n.size());
 
@@ -71,7 +73,6 @@ int main(int argc, char* argv[]) {
     
   }
   cout << "  ---------------------------------------------------\n";
-
 }
 
 
