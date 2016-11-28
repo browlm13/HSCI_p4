@@ -12,8 +12,10 @@ CXX = g++
 CXXFLAGS = -O2 -std=c++11
 
 # makefile targets
-all : test_Gauss2.exe	test_Gausx.exe	test_int.exe	test_adapt.exe	test_adapt_tester.exe
+all : test_Gauss2.exe	test_Gausx.exe	test_int.exe	test_adapt.exe	test_adapt_tester.exe	test_carbon.exe
 
+test_carbon.exe :	matrix.cpp composite_int.cpp	adaptive_int.cpp	carbon.cpp	test_carbon.cpp
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 test_adapt_tester.exe :	matrix.cpp composite_int.cpp	adaptive_int_tester.cpp		test_adapt_tester.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
