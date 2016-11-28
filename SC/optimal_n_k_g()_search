@@ -1,0 +1,76 @@
+n:10, k:20
+ Lowest total number of operations 2850.000000,  corresponding coef: 0.914286
+n:10, k:30
+ Lowest total number of operations 3240.000000,  corresponding coef: 0.914286
+n:10, k:50
+ Lowest total number of operations 4020.000000,  corresponding coef: 0.914286
+n:10, k:90
+ Lowest total number of operations 5580.000000,  corresponding coef: 0.914286
+n:10, k:170
+ Lowest total number of operations 8700.000000,  corresponding coef: 0.914286
+n:10, k:330
+ Lowest total number of operations 14940.000000,  corresponding coef: 0.914286
+n:20, k:30
+ Lowest total number of operations 2510.000000,  corresponding coef: 0.485714
+n:20, k:40
+ Lowest total number of operations 2820.000000,  corresponding coef: 0.485714
+n:20, k:60
+ Lowest total number of operations 3440.000000,  corresponding coef: 0.485714
+n:20, k:100
+ Lowest total number of operations 4680.000000,  corresponding coef: 0.485714
+n:20, k:180
+ Lowest total number of operations 7160.000000,  corresponding coef: 0.485714
+n:20, k:340
+ Lowest total number of operations 12120.000000,  corresponding coef: 0.485714
+n:40, k:50
+ Lowest total number of operations 3030.000000,  corresponding coef: 0.400000
+n:40, k:60
+ Lowest total number of operations 3260.000000,  corresponding coef: 0.400000
+n:40, k:80
+ Lowest total number of operations 3720.000000,  corresponding coef: 0.400000
+n:40, k:120
+ Lowest total number of operations 4640.000000,  corresponding coef: 0.400000
+n:40, k:200
+ Lowest total number of operations 6480.000000,  corresponding coef: 0.400000
+n:40, k:360
+ Lowest total number of operations 10160.000000,  corresponding coef: 0.400000
+n:80, k:90
+ Lowest total number of operations 2550.000000,  corresponding coef: 0.400000
+n:80, k:100
+ Lowest total number of operations 2700.000000,  corresponding coef: 0.400000
+n:80, k:120
+ Lowest total number of operations 3000.000000,  corresponding coef: 0.400000
+n:80, k:160
+ Lowest total number of operations 3600.000000,  corresponding coef: 0.400000
+n:80, k:240
+ Lowest total number of operations 4800.000000,  corresponding coef: 0.400000
+n:80, k:400
+ Lowest total number of operations 7200.000000,  corresponding coef: 0.400000
+n:160, k:170
+ Lowest total number of operations 4950.000000,  corresponding coef: 0.400000
+n:160, k:180
+ Lowest total number of operations 5100.000000,  corresponding coef: 0.400000
+n:160, k:200
+ Lowest total number of operations 5400.000000,  corresponding coef: 0.400000
+n:160, k:240
+ Lowest total number of operations 6000.000000,  corresponding coef: 0.400000
+n:160, k:320
+ Lowest total number of operations 7200.000000,  corresponding coef: 0.400000
+n:160, k:480
+ Lowest total number of operations 9600.000000,  corresponding coef: 0.400000
+n:320, k:330
+ Lowest total number of operations 9750.000000,  corresponding coef: 0.400000
+n:320, k:340
+ Lowest total number of operations 9900.000000,  corresponding coef: 0.400000
+n:320, k:360
+ Lowest total number of operations 10200.000000,  corresponding coef: 0.400000
+n:320, k:400
+ Lowest total number of operations 10800.000000,  corresponding coef: 0.400000
+n:320, k:480
+ Lowest total number of operations 12000.000000,  corresponding coef: 0.400000
+n:320, k:640
+ Lowest total number of operations 14400.000000,  corresponding coef: 0.400000
+
+
+Optimal settings:
+	n:20, k:30, coef: 0.485714
